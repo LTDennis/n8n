@@ -18,6 +18,12 @@ This is a clean Docker setup that includes:
 docker compose up -d
 ```
 
+## Update
+
+```bash
+docker compose pull
+```
+
 ## Ports
 
 - n8n: https://yourdomain.com/n8n/
