@@ -24,6 +24,12 @@ docker compose up -d
 docker compose pull
 ```
 
+## (Optional) Remove old/unused images
+
+```bash
+docker image prune -f
+```
+
 ## Ports
 
 - n8n: https://yourdomain.com/n8n/
