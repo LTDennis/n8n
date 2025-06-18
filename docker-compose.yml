@@ -87,3 +87,4 @@ volumes:
   ollama_storage:
   caddy_data:
   caddy_config:
+  portainer_data:
