@@ -28,7 +28,7 @@ services:
       N8N_BASIC_AUTH_ACTIVE: true
       N8N_BASIC_AUTH_USER: admin
       N8N_BASIC_AUTH_PASSWORD: securepassword
-      WEBHOOK_URL: https://yourdomain.com/
+      WEBHOOK_URL: https://n8n.locus-t.my/
     volumes:
       - n8n_storage:/home/node/.n8n
     depends_on:
