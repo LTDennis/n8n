@@ -1,21 +1,26 @@
 version: '3.8'
 
 services:
-  db:
+  postgres:
     image: postgres:15
+    container_name: postgres
+    restart: unless-stopped
     environment:
       POSTGRES_USER: n8n
       POSTGRES_PASSWORD: n8npassword
       POSTGRES_DB: n8n
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    restart: unless-stopped
+    expose:
+      - 5432
 
   n8n:
-    image: n8nio/n8n
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: unless-stopped
     environment:
       DB_TYPE: postgresdb
-      DB_POSTGRESDB_HOST: db
+      DB_POSTGRESDB_HOST: postgres
       DB_POSTGRESDB_PORT: 5432
       DB_POSTGRESDB_DATABASE: n8n
       DB_POSTGRESDB_USER: n8n
@@ -25,36 +30,50 @@ services:
       N8N_BASIC_AUTH_PASSWORD: securepassword
       WEBHOOK_URL: https://yourdomain.com/
     volumes:
-      - n8n_data:/home/node/.n8n
-    restart: unless-stopped
+      - n8n_storage:/home/node/.n8n
     depends_on:
-      - db
+      - postgres
+    expose:
+      - 5678
 
   ollama:
-    image: ollama/ollama
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama_data:/root/.ollama
+    image: ollama/ollama:latest
+    container_name: ollama
     restart: unless-stopped
+    expose:
+      - 11434
+    volumes:
+      - ollama_storage:/root/.ollama
+
+  ollama-init:
+    image: ollama/ollama:latest
+    container_name: ollama-init
+    volumes:
+      - ollama_storage:/root/.ollama
+    entrypoint: /bin/sh
+    command:
+      - "-c"
+      - |
+        sleep 3
+        OLLAMA_HOST=ollama:11434 ollama pull nomic-embed-text
+    depends_on:
+      - ollama
 
   caddy:
-    image: caddy:latest
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
-    restart: unless-stopped
-    depends_on:
-      - n8n
-      - ollama
 
 volumes:
   postgres_data:
-  n8n_data:
-  ollama_data:
+  n8n_storage:
+  ollama_storage:
   caddy_data:
   caddy_config:
