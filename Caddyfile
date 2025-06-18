@@ -1,4 +1,4 @@
-yourdomain.com {
+https://n8n.locus-t.my {
   reverse_proxy /n8n/* n8n:5678
   reverse_proxy /ollama/* ollama:11434
   encode gzip
