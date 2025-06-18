@@ -83,6 +83,7 @@ docker exec -i postgres psql -U n8n < backup.sql
 ```
 
 ⚠️ Tip: Stay within the same major version if possible
+
 If you're on postgres:15, use postgres:15.6 to stay safe unless you need new features.
 
 ## 🔁 Optional: Automate minor patch upgrades only
