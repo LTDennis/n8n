@@ -12,7 +12,7 @@ This is a clean Docker setup that includes:
 1. Clone this repo and `cd` into it.
 2. Replace `yourdomain.com` in `Caddyfile` with your real domain.
 3. Point your domain to your server IP (A record).
-4. Install Discord custom nodes, refer to 
+4. Install Discord custom nodes, refer to  https://github.com/LTDennis/n8n/blob/main/n8n-nodes-discord.md
 5. Run:
 
 ```bash
