@@ -12,7 +12,8 @@ This is a clean Docker setup that includes:
 1. Clone this repo and `cd` into it.
 2. Replace `yourdomain.com` in `Caddyfile` with your real domain.
 3. Point your domain to your server IP (A record).
-4. Run:
+4. Install Discord custom nodes, refer to 
+5. Run:
 
 ```bash
 docker compose up -d
