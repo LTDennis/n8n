@@ -31,8 +31,10 @@ services:
       WEBHOOK_URL: https://n8n.locus-t.my
       TZ: Asia/Kuala_Lumpur
       GENERIC_TIMEZONE: Asia/Kuala_Lumpur
+      N8N_CUSTOM_EXTENSIONS: /home/node/.n8n/custom
     volumes:
       - n8n_storage:/home/node/.n8n
+      - /home/ubuntu/n8n_custom_nodes:/home/node/.n8n/custom
     depends_on:
       - postgres
     expose:
